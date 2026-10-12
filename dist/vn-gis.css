@@ -6,3 +6,8 @@
 .vn-gis-source-credits:empty{display:none}
 .vn-gis-extra-credit{color:#41546a;font-size:10px}
 @media(max-width:600px){.vn-gis-leaflet-control .vn-gis-credit{font-size:10px;max-width:calc(100vw - 24px)}.vn-gis-leaflet-control .vn-gis-flag{width:18px;height:12px}}
+
+/* CDN 1.2: flag is image-backed, not a Unicode emoji. */
+.vn-gis-divider{display:inline-block;color:#728197;font-weight:500;padding:0 1px}
+.vn-gis-credit img.vn-gis-flag{display:block;width:22px;height:15px;min-width:22px;object-fit:contain}
+.vn-gis-leaflet-control .vn-gis-credit{align-items:center}
