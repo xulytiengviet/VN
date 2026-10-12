@@ -2,7 +2,7 @@
 
 Thư viện **vietflexmap@1.0.0** phân phối từ npm qua UNPKG, sử dụng **Leaflet 1.9.4**. Mã nguồn phát triển duy trì tại [xulytiengviet/VN](https://github.com/xulytiengviet/VN). Không tạo thêm thư viện CDN hoặc tên package khác.
 
-## Sử dụng CDN
+## Tích hợp trên GitHub Pages (tạm thời sử dụng file nguồn UTF-8)
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -15,7 +15,7 @@ Thư viện **vietflexmap@1.0.0** phân phối từ npm qua UNPKG, sử dụng *
 <script>const app = VNMap.create("map");</script>
 ```
 
-Ảnh cờ Việt Nam dạng SVG: https://unpkg.com/vietflexmap@1.0.0/assets/vietnam-flag.svg. Cờ không phụ thuộc font emoji. Attribution được đặt ở góc trái dưới, liên kết tới [© OpenStreetMap](https://www.openstreetmap.org/copyright) và giữ ghi công các nhà cung cấp dữ liệu bổ sung.
+Ảnh cờ Việt Nam dạng SVG cho trang GitHub Pages: `./assets/vn-flag.svg`. Cờ không phụ thuộc font emoji. Attribution được đặt ở góc trái dưới, liên kết tới [© OpenStreetMap](https://www.openstreetmap.org/copyright) và giữ ghi công các nhà cung cấp dữ liệu bổ sung.
 
 Những nhãn riêng hiển thị trên bản đồ: **Biển Đông**, **Qđ.Hoàng Sa (Việt Nam)** và **Qđ.Trường Sa (Việt Nam)**. Chúng là điểm neo nhãn tham khảo, không thay đổi đường biên, tile nền hoặc dữ liệu GIS lịch sử. Các công cụ đo, định vị và nhập/xuất GeoJSON tiếp tục thuộc API `VNMap.create`.
 
