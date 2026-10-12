@@ -1,1 +1,8 @@
 .vn-gis-credit{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;font:12px/1.5 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#1f2937;background:rgba(255,255,255,.94);padding:3px 7px;border-radius:5px}.vn-gis-credit img,.vn-gis-flag{width:22px;height:auto;aspect-ratio:3/2;object-fit:contain;display:inline-block;vertical-align:middle;flex:none}.vn-gis-credit a{color:#075a9f;text-decoration:none}.vn-gis-credit a:hover{text-decoration:underline}.vn-gis-labels{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font:12px/1.4 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}.vn-gis-labels span{padding:3px 7px;border:1px solid #cbd5e1;border-radius:5px;background:rgba(255,255,255,.96);color:#182b48}.leaflet-control .vn-gis-credit{pointer-events:auto}@media(max-width:600px){.vn-gis-credit{font-size:11px;gap:4px}.vn-gis-labels{max-width:260px}.vn-gis-labels span{font-size:11px}}
+/* Unified attribution: SVG flag + one compact OSM credit. */
+.vn-gis-leaflet-control{margin:0 6px 5px 0!important}
+.vn-gis-leaflet-control .vn-gis-credit{gap:5px;padding:2px 6px;border-radius:5px;box-shadow:0 1px 4px #0002;white-space:normal;font-size:11px;line-height:1.35}
+.vn-gis-leaflet-control .vn-gis-flag{width:19px;height:13px}
+.vn-gis-source-credits:empty{display:none}
+.vn-gis-extra-credit{color:#41546a;font-size:10px}
+@media(max-width:600px){.vn-gis-leaflet-control .vn-gis-credit{font-size:10px;max-width:calc(100vw - 24px)}.vn-gis-leaflet-control .vn-gis-flag{width:18px;height:12px}}
