@@ -63,7 +63,7 @@ main{padding-bottom:22px}.panel{border:1px solid #dfe6f1;border-radius:16px;back
 <section class="panel" id="demo" aria-labelledby="demo-heading">
   <div class="section-head">
     <h2 id="demo-heading">Bản đồ tương tác</h2>
-    <label class="basemap-choice" for="basemap-mode">Nền bản đồ <select id="basemap-mode" aria-label="Chọn nguồn nền bản đồ"><option value="mapbasic2" selected>Mapbasic2 · PMTiles</option><option value="osm">OpenStreetMap</option></select></label>
+
   </div>
   <div class="vnmap-shell" id="map-shell"><div id="map" aria-label="Bản đồ tương tác Vietflexmap"></div></div>
   <p class="map-message" id="message" role="status" aria-live="polite">Đang tải bản đồ…</p>
@@ -140,7 +140,6 @@ document.querySelectorAll("[data-copy]").forEach(function(button){
  });
 });
 </script>
-<script src="./integration/mapbasic2-adapter.js"></script>
 <script>
 (function(){
 "use strict";
@@ -167,33 +166,22 @@ function loadCSS(url){
   });
 }
 function validate(){return !!(window.L&&window.L.map&&window.VNMap&&typeof window.VNMap.create==="function");}
-var modeSelect=document.getElementById("basemap-mode");
-var started=false;
-async function boot(){
-  var mode=modeSelect.value;
-  msg.textContent="Đang tải nền "+(mode==="mapbasic2"?"Mapbasic2 (PMTiles)":"OpenStreetMap")+"…";
+function boot(){
+  msg.textContent="Đang khởi tạo bản đồ OpenStreetMap…";
   try{
-    if(mode==="mapbasic2" && !window.pmtiles){
-      await loadScript("https://cdn.jsdelivr.net/npm/pmtiles@4.5.0/dist/pmtiles.js");
-    }
-    var app=await window.VietflexMapbasic2.start({
-      target:"map",mode:mode,
-      onError:function(e){msg.textContent="Mapbasic2: lỗi tải tile. "+e.message;}
-    });
-    window.vnMapApp=app;
-    msg.textContent=mode==="mapbasic2"?"Sẵn sàng · Mapbasic2 / R2":"Sẵn sàng · OpenStreetMap";
-    started=true;
+    if(window.vnMapApp && typeof window.vnMapApp.remove==="function") window.vnMapApp.remove();
+    window.vnMapApp=window.VNMap.create("map");
+    msg.textContent="Sẵn sàng · OpenStreetMap";
   }catch(e){
-    msg.textContent="Không tải được "+(mode==="mapbasic2"?"Mapbasic2":"OSM")+": "+e.message+". Có thể đổi nguồn bản đồ ở góc trên.";
-    console.error("Basemap error:",e);
+    msg.textContent="Không thể khởi tạo bản đồ: "+e.message;
+    console.error("Vietflexmap map initialization failed:",e);
   }
 }
-modeSelect.addEventListener("change",function(){if(window.VietflexMapbasic2&&window.L)boot();});
 async function start(){
   for(var i=0;i<attempts.length;i++){
     try{
       await loadScript(attempts[i]);
-      if(validate()){await boot();return;}
+      if(validate()){boot();return;}
       throw new Error("Vietflexmap CDN không cung cấp đủ L / VNMap");
     }catch(e){console.warn(e);}
   }
@@ -208,7 +196,7 @@ async function start(){
     if(!window.VNGIS) await loadScript("./dist/vn-gis.js");
     if(!window.VNMap) await loadScript("./dist/vn-map.js");
     if(!validate()) throw new Error("Thiếu thư viện Leaflet hoặc VNMap");
-    await boot();
+    boot();
   }catch(e){
     msg.textContent="Không tải được thư viện bản đồ. Vui lòng kiểm tra mạng/CDN. "+e.message;
     console.error("Vietflexmap initialization failed:",e);
