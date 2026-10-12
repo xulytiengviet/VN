@@ -10,8 +10,9 @@ function start(target,opts){
  base["OpenStreetMap"]=os;active=os;os.addTo(m);
  var geo=L.featureGroup().addTo(m);overlays["Dữ liệu GeoJSON"]=geo;
  var controls=L.control.layers(base,overlays,{collapsed:true,position:"topright"}).addTo(m);
- L.control.zoom({position:"bottomright"}).addTo(m);L.control.scale({position:"bottomleft",metric:true,imperial:false}).addTo(m);
- if(root.VNGIS&&root.VNGIS.addToLeaflet)root.VNGIS.addToLeaflet(m,{position:"bottomright"});
+ L.control.zoom({position:"bottomright"}).addTo(m);L.control.scale({position:"topleft",metric:true,imperial:false}).addTo(m);
+ if(root.VNGIS&&root.VNGIS.addToLeaflet)root.VNGIS.addToLeaflet(m,{position:"bottomleft"});
+ if(root.VNGIS&&root.VNGIS.addGeographicLabels)root.VNGIS.addGeographicLabels(m);
  var measurePoints=[],measureLayer=L.layerGroup().addTo(m),isMeasuring=false,locationMarker=null;
  var toolbar=el("div","vnmap-toolbar");toolbar.setAttribute("role","toolbar");toolbar.setAttribute("aria-label","Công cụ bản đồ");
  var status=el("output","vnmap-status","Sẵn sàng");status.setAttribute("aria-live","polite");
