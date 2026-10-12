@@ -4,7 +4,7 @@
 function getL(){if(!root.L)throw new Error("VNMap: cần tải Leaflet 1.9.4 trước vn-map.js");return root.L;}
 function el(tag,cls,text){var x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x;}
 function start(target,opts){
- opts=opts||{};var L=getL();var m=L.map(target,{center:opts.center||[16.25,108.2],zoom:opts.zoom||5,zoomControl:false,preferCanvas:true,tapHold:true,scrollWheelZoom:opts.scrollWheelZoom!==false});
+ opts=opts||{};var L=getL();var m=L.map(target,{center:opts.center||[16.25,108.2],zoom:opts.zoom||5,zoomControl:false,attributionControl:false,preferCanvas:true,tapHold:true,scrollWheelZoom:opts.scrollWheelZoom!==false});
  var base={},overlays={},active=null;var attribution='© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>';
  var os=L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:attribution});
  base["OpenStreetMap"]=os;active=os;os.addTo(m);
