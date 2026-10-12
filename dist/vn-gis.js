@@ -56,24 +56,63 @@
     target.appendChild(node);
     return node;
   }
-  /* Add only one custom control. Existing Leaflet layers and attribution remain untouched. */
+  /* One compact attribution control. Preserve all non-OSM source credits. */
   function addToLeaflet(map, options) {
-    if (!map || typeof map.getContainer !== "function" || !rootLeaflet()) throw new Error("VNGIS.addToLeaflet requires a Leaflet map");
+    if (!map || typeof map.getContainer !== "function" || !rootLeaflet()) throw new Error("VNGIS.addToLeaflet requires Leaflet");
+    options = options || {};
     var L = rootLeaflet();
     var key = "_vnGISCreditControl";
     if (map[key]) return map[key];
+    // VNMap sets attributionControl:false. For third-party maps, opt in
+    // to replacing their native attribution with replaceAttribution:true.
+    if (map.attributionControl && !options.replaceAttribution) {
+      return map.attributionControl;
+    }
+    if (map.attributionControl && options.replaceAttribution) {
+      map.removeControl(map.attributionControl);
+      map.attributionControl = null;
+    }
+    var sourceHolder;
+    function syncSources() {
+      if (!sourceHolder) return;
+      sourceHolder.replaceChildren();
+      var seen = new Set();
+      map.eachLayer(function (layer) {
+        if (!layer.getAttribution) return;
+        var raw = layer.getAttribution();
+        if (!raw) return;
+        // OSM gets the short visible credit and complete contributor text
+        // in the title, aria label, and HTML footer.
+        if (/openstreetmap/i.test(raw) && !/<(?!\/?a\b)/i.test(raw)) return;
+        if (seen.has(raw)) return;
+        seen.add(raw);
+        var extra = document.createElement("span");
+        extra.className = "vn-gis-extra-credit";
+        extra.textContent = " · " + raw.replace(/<[^>]*>/g, "").trim();
+        sourceHolder.appendChild(extra);
+      });
+    }
     var C = L.Control.extend({
-      options: { position: (options && options.position) || "bottomright" },
+      options: { position: options.position || "bottomright" },
       onAdd: function () {
         var el = L.DomUtil.create("div", "vn-gis-leaflet-control");
-        el.appendChild(credit(options));
+        var c = credit(options);
+        c.setAttribute("role", "contentinfo");
+        c.setAttribute("aria-label", "Quốc kỳ Việt Nam. © OpenStreetMap contributors");
+        sourceHolder = document.createElement("span");
+        sourceHolder.className = "vn-gis-source-credits";
+        c.appendChild(sourceHolder);
+        el.appendChild(c);
         L.DomEvent.disableClickPropagation(el);
         return el;
-      }
+      },
+      onRemove: function () { map.off("layeradd layerremove", syncSources); }
     });
     var control = new C().addTo(map);
     map[key] = control;
+    map.on("layeradd layerremove", syncSources);
     map.on("unload", function () { map[key] = null; });
+    syncSources();
     return control;
   }
   function rootLeaflet() { return typeof globalThis !== "undefined" ? globalThis.L : null; }
