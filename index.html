@@ -37,15 +37,16 @@ a{color:#0962ab}footer{font-size:12px;color:#52647c}
 <p id="message" role="status" aria-live="polite" class="muted">Ứng dụng sẵn sàng.</p>
 
 </section>
-<section class="card"><h2>Thêm VNMap vào trang web</h2>
+<section class="card"><h2>Ví dụ chạy bằng mã nguồn GitHub Pages</h2>
 <pre><code>&lt;link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"&gt;
 &lt;link rel="stylesheet" href="./dist/vn-gis.css"&gt;
 &lt;link rel="stylesheet" href="./dist/vn-map.css"&gt;
 &lt;div class="vnmap-shell" style="height:600px"&gt;&lt;div id="map" style="height:100%"&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"&gt;&lt;/script&gt;
-&lt;script src="https://unpkg.com/vietflexmap@1.0.0/dist/vietflexmap.js"&gt;&lt;/script&gt;
+&lt;script src="./dist/vn-gis.js"&gt;&lt;/script&gt;
+&lt;script src="./dist/vn-map.js"&gt;&lt;/script&gt;
 &lt;script&gt;const app = VNMap.create("map");&lt;/script&gt;</code></pre>
-<p class="muted">Tài liệu: <a href="./docs/INTEGRATION.md">Tích hợp CDN</a> · <a href="https://github.com/xulytiengviet/VN">Mã nguồn</a>. Bản đồ OpenStreetMap là dữ liệu nền minh họa; tuân thủ bản quyền và chính sách tải tile.</p></section>
+<p class="muted">Phiên bản npm 1.0.0 đang cần sửa mã hóa UTF-8; tạm thời sử dụng các file nguồn trực tiếp trên trang này. Tài liệu: <a href="./docs/INTEGRATION.md">Tích hợp CDN</a> · <a href="https://github.com/xulytiengviet/VN">Mã nguồn</a>. Bản đồ OpenStreetMap là dữ liệu nền minh họa; tuân thủ bản quyền và chính sách tải tile.</p></section>
 </main>
 <footer>© 2026 Long Ngo · Vietflexmap (MIT) · Leaflet (BSD-2-Clause) · <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a> · Nhãn giao diện: Giữ nguyên hệ thống GIS · Dữ liệu lịch sử · Biển Đông · Qđ.Hoàng Sa (Việt Nam) · Qđ.Trường Sa (Việt Nam).</footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
