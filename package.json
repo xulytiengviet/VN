@@ -1,0 +1,34 @@
+{
+  "name": "vietflexmap",
+  "version": "1.0.2",
+  "description": "Vietnam-first WebGIS with bundled Leaflet 1.9.4 and UTF-8 GIS labels",
+  "main": "./dist/vietflexmap.js",
+  "unpkg": "./dist/vietflexmap.js",
+  "style": "./dist/vietflexmap.css",
+  "author": "Long Ngo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xulytiengviet/VN.git"
+  },
+  "scripts": {
+    "build": "node scripts/build-vietflexmap.mjs",
+    "check": "node scripts/check-vietflexmap.mjs",
+    "prepack": "npm run build && npm run check"
+  },
+  "devDependencies": {
+    "leaflet": "1.9.4"
+  },
+  "files": [
+    "dist/vietflexmap.js",
+    "dist/vietflexmap.css",
+    "dist/images",
+    "assets/vietnam-flag.svg",
+    "README.md",
+    "LICENSE",
+    "LEAFLET-LICENSE.txt"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
