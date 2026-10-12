@@ -2,11 +2,11 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#da251d"><title>Vietflexmap 1.0.0 · WebGIS Việt Nam</title>
+<meta name="theme-color" content="#da251d"><title>Vietflexmap · WebGIS Việt Nam</title>
 <meta name="description" content="VNMap thư viện JavaScript WebGIS dựa trên Leaflet, tối ưu thiết bị di động, cờ Việt Nam SVG.">
-<link rel="icon" href="https://unpkg.com/vietflexmap@1.0.0/assets/vietnam-flag.svg" type="image/svg+xml">
+<link rel="icon" href="./assets/vn-flag.svg" type="image/svg+xml">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="https://unpkg.com/vietflexmap@1.0.0/dist/vietflexmap.css">
+<link rel="stylesheet" href="./dist/vn-gis.css"><link rel="stylesheet" href="./dist/vn-map.css">
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#15243b;font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
 header,main,footer{max-width:1250px;padding:16px 20px;margin:auto}header{display:flex;align-items:center;gap:12px}
@@ -22,8 +22,8 @@ a{color:#0962ab}footer{font-size:12px;color:#52647c}
 </style>
 </head>
 <body>
-<header><img src="https://unpkg.com/vietflexmap@1.0.0/assets/vietnam-flag.svg" width="47" height="31" alt="Quốc kỳ Việt Nam">
-<div><h1>Vietflexmap · Thư viện WebGIS Việt Nam</h1><div class="muted">Vietflexmap 1.0.0 · Leaflet 1.9.4 · Mobile-first · SVG Flag · Long Ngo · MIT 2026</div></div></header>
+<header><img src="./assets/vn-flag.svg" width="47" height="31" alt="Quốc kỳ Việt Nam">
+<div><h1>Vietflexmap · Thư viện WebGIS Việt Nam</h1><div class="muted">Vietflexmap · Leaflet 1.9.4 · Mobile-first · SVG Flag · Long Ngo · MIT 2026</div></div></header>
 <main>
 <section class="card">
 <h2>Bản đồ tương tác</h2>
@@ -39,7 +39,8 @@ a{color:#0962ab}footer{font-size:12px;color:#52647c}
 </section>
 <section class="card"><h2>Thêm VNMap vào trang web</h2>
 <pre><code>&lt;link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"&gt;
-&lt;link rel="stylesheet" href="https://unpkg.com/vietflexmap@1.0.0/dist/vietflexmap.css"&gt;
+&lt;link rel="stylesheet" href="./dist/vn-gis.css"&gt;
+&lt;link rel="stylesheet" href="./dist/vn-map.css"&gt;
 &lt;div class="vnmap-shell" style="height:600px"&gt;&lt;div id="map" style="height:100%"&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"&gt;&lt;/script&gt;
 &lt;script src="https://unpkg.com/vietflexmap@1.0.0/dist/vietflexmap.js"&gt;&lt;/script&gt;
@@ -48,7 +49,7 @@ a{color:#0962ab}footer{font-size:12px;color:#52647c}
 </main>
 <footer>© 2026 Long Ngo · Vietflexmap (MIT) · Leaflet (BSD-2-Clause) · <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a> · Nhãn giao diện: Giữ nguyên hệ thống GIS · Dữ liệu lịch sử · Biển Đông · Qđ.Hoàng Sa (Việt Nam) · Qđ.Trường Sa (Việt Nam).</footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/vietflexmap@1.0.0/dist/vietflexmap.js"></script>
+<script src="./dist/vn-gis.js"></script><script src="./dist/vn-map.js"></script>
 <script>
 (function(){
 var msg=document.getElementById("message");try{
