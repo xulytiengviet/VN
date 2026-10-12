@@ -44,8 +44,6 @@ main{padding-bottom:22px}.panel{border:1px solid #dfe6f1;border-radius:16px;back
 .links{color:#586b85;font-size:13px;margin:15px 0 0}footer{padding-top:0;padding-bottom:25px;font-size:12px;color:#718096}
 @media(max-width:900px){header{flex-direction:column;align-items:flex-start}.features{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){header,main,footer{padding-left:12px;padding-right:12px}header{padding-top:22px;padding-bottom:16px}.panel{padding:10px;border-radius:13px}.features{gap:9px}.feature{padding:13px}.intro-grid{grid-template-columns:1fr}#map-shell{height:65vh;min-height:450px}.section-head{align-items:flex-start}.pill{font-size:11px}.hero-actions{width:100%}.cta{flex:1}}
-.basemap-choice{display:flex;align-items:center;gap:8px;font-size:13px;color:#52647c;white-space:nowrap}.basemap-choice select{font:inherit;background:#fff;border:1px solid #c9d8e9;border-radius:8px;padding:7px;max-width:210px;color:#15243b}
-@media(max-width:600px){.basemap-choice{flex-wrap:wrap;justify-content:flex-end}.basemap-choice select{max-width:170px}}
 </style>
 </head>
 <body>
@@ -171,6 +169,19 @@ function boot(){
   try{
     if(window.vnMapApp && typeof window.vnMapApp.remove==="function") window.vnMapApp.remove();
     window.vnMapApp=window.VNMap.create("map");
+    // Reposition existing Leaflet controls without rebuilding layers or changing the npm package.
+    var leafletMap=window.vnMapApp && window.vnMapApp.map;
+    if(leafletMap && typeof leafletMap.getContainer==="function"){
+      var container=leafletMap.getContainer();
+      function relocate(selector,corner){
+        var control=container.querySelector(selector);
+        var destination=container.querySelector(".leaflet-"+corner);
+        if(control&&destination) destination.appendChild(control);
+      }
+      relocate(".leaflet-control-zoom","top.leaflet-left");
+      relocate(".leaflet-control-scale","bottom.leaflet-left");
+      relocate(".vn-gis-leaflet-control","bottom.leaflet-right");
+    }
     msg.textContent="Sẵn sàng · OpenStreetMap";
   }catch(e){
     msg.textContent="Không thể khởi tạo bản đồ: "+e.message;
