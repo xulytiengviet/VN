@@ -11,3 +11,10 @@
 .vn-gis-divider{display:inline-block;color:#728197;font-weight:500;padding:0 1px}
 .vn-gis-credit img.vn-gis-flag{display:block;width:22px;height:15px;min-width:22px;object-fit:contain}
 .vn-gis-leaflet-control .vn-gis-credit{align-items:center}
+
+/* Always-visible non-interactive name overlays: separate from OSM tiles and GIS geometry. */
+.vn-gis-map-label{background:transparent;border:0!important;pointer-events:none!important}
+.vn-gis-map-name{display:block;white-space:nowrap;text-align:center;color:#145879;font:700 12px/28px system-ui,Arial,sans-serif;text-shadow:0 1px 2px white,1px 0 2px white,-1px 0 2px white;pointer-events:none}
+.vn-gis-map-name--sea{color:#086c90;font-size:18px;letter-spacing:.08em}
+.vn-gis-leaflet-control{margin:0 0 0 0!important}
+.vn-gis-leaflet-control .vn-gis-credit{border-radius:0 5px 0 0;box-shadow:none}
