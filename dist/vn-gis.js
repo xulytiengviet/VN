@@ -39,7 +39,7 @@
   function labels() {
     var el = document.createElement("div");
     el.className = "vn-gis-labels";
-    ["Biển Đông", "Qđ. Hoàng Sa (Việt Nam)", "Qđ. Trường Sa (Việt Nam)"].forEach(function (label) {
+    ["Dữ liệu lịch sử", "Biển Đông", "Qđ. Hoàng Sa (Việt Nam)", "Qđ. Trường Sa (Việt Nam)"].forEach(function (label) {
       var item = document.createElement("span");
       item.textContent = label;
       el.appendChild(item);
