@@ -1,49 +1,107 @@
 <!doctype html>
 <html lang="vi">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#da251d"><title>Vietflexmap 1.0.2 · WebGIS Việt Nam</title>
-<meta name="description" content="VNMap thư viện JavaScript WebGIS dựa trên Leaflet, tối ưu thiết bị di động, cờ Việt Nam SVG.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="Vietflexmap: thư viện WebGIS Việt Nam, tạo bản đồ tương tác nhanh với GeoJSON, công cụ GIS và CDN npm/UNPKG.">
+<title>Vietflexmap · Thư viện WebGIS Việt Nam</title>
 <link rel="icon" href="./assets/vn-flag.svg" type="image/svg+xml">
 <link id="vietflex-css" rel="stylesheet" href="https://unpkg.com/vietflexmap@1.0.2/dist/vietflexmap.css" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/vietflexmap@1.0.2/dist/vietflexmap.css'">
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#15243b;font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
-header,main,footer{max-width:1250px;padding:16px 20px;margin:auto}header{display:flex;align-items:center;gap:12px}
-header img{width:47px;height:auto}h1{font-size:clamp(19px,3vw,27px);margin:0}.muted{color:#52647c;font-size:13px}
-h2{font-size:17px;margin:0 0 9px}.card{padding:16px;border:1px solid #dce3ef;border-radius:14px;background:white;margin-bottom:15px}
-#map-shell{height:min(65vh,650px);min-height:380px;overflow:hidden;border-radius:10px}
-.buttons{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
-.buttons button,.buttons label{border:1px solid #ced9e7;background:white;border-radius:8px;padding:10px 13px;cursor:pointer;font:inherit;min-height:44px}
-.buttons button:hover,.buttons label:hover{background:#edf4ff}input[type=file]{max-width:100%}
-pre{background:#112239;color:#e7efff;white-space:pre-wrap;overflow-wrap:anywhere;padding:15px;border-radius:8px}
-a{color:#0962ab}footer{font-size:12px;color:#52647c}
-@media(max-width:600px){header,main,footer{padding:11px}#map-shell{height:65vh;min-height:440px}.card{padding:10px}}
+:root{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#15243b;background:#f7f9fc}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-size:15px;line-height:1.6}
+a{color:#0b63ce}button,a{touch-action:manipulation}header,main,footer{max-width:1250px;margin:auto;padding-left:20px;padding-right:20px}
+header{padding-top:32px;padding-bottom:24px;display:flex;justify-content:space-between;align-items:center;gap:22px}
+.hero-content{max-width:780px}h1{font-size:clamp(25px,3.2vw,40px);line-height:1.16;letter-spacing:-.03em;margin:0 0 10px}
+.hero-description{font-size:clamp(14px,1.5vw,17px);color:#52647c;margin:0}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;flex-shrink:0}
+.cta{display:inline-flex;justify-content:center;align-items:center;min-height:44px;text-align:center;padding:9px 16px;border:1px solid #ccdaec;border-radius:10px;background:#fff;text-decoration:none;font-weight:650;white-space:nowrap}
+.cta-primary{color:#fff;background:#0b63ce;border-color:#0b63ce}.cta-primary:hover{background:#084c9b}.cta-outline:hover{background:#eef5ff}
+main{padding-bottom:22px}.panel{border:1px solid #dfe6f1;border-radius:16px;background:#fff;margin-bottom:18px;padding:18px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}h2{margin:0;font-size:20px;line-height:1.35}
+.section-intro{margin:5px 0 0;color:#607089;font-size:14px}.pill{border:1px solid #dce8ef;background:#f1f7fb;color:#325b7d;border-radius:999px;padding:4px 11px;font-size:12px;white-space:nowrap}
+#map-shell{position:relative;height:min(70vh,680px);min-height:430px;border-radius:13px;overflow:hidden}
+#map{height:100%}.map-message{font-size:12px;color:#62738a;margin:8px 2px 0}
+#map-shell .vnmap-toolbar{max-width:244px;padding:5px;gap:5px;border:1px solid #e3e9f1;border-radius:13px;box-shadow:0 2px 10px #162b4424}
+#map-shell .vnmap-tools{top:10px;left:10px;max-width:calc(100% - 54px)}
+#map-shell .vnmap-btn{min-height:38px;min-width:38px;padding:3px 8px;font-size:19px}
+#map-shell .vnmap-status{font-size:12px;padding:4px 9px}
+#map-shell .vn-gis-leaflet-control{margin:0 8px 7px 0!important}
+#map-shell .vn-gis-leaflet-control .vn-gis-credit{background:rgba(255,255,255,.96);font-size:10px;line-height:1.2;padding:3px 6px;border-radius:7px;gap:4px;box-shadow:0 1px 6px #101f2c25;max-width:min(85vw,360px)}
+#map-shell .vn-gis-leaflet-control .vn-gis-flag{width:16px!important;min-width:16px!important;height:11px!important}
+#map-shell .vn-gis-extra-credit{font-size:10px}
+#map-shell .leaflet-bottom.leaflet-right .leaflet-control-zoom{margin-bottom:34px}
+.features{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.feature{background:#fff;border:1px solid #e1e8f3;border-radius:14px;padding:18px}.feature h3{margin:0 0 6px;font-size:16px}.feature p{margin:0;color:#53657f;font-size:13px}
+.feature-symbol{display:inline-flex;background:#eff5ff;color:#0b63ce;border-radius:9px;min-height:34px;min-width:34px;align-items:center;justify-content:center;font-weight:750;margin-bottom:12px}
+.intro-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0 20px}
+.intro-tile{padding:16px;background:#f8faff;border:1px solid #e3eaf5;border-radius:12px}.intro-tile h3{font-size:16px;margin:0 0 5px}.intro-tile p{margin:0;font-size:14px;color:#52647c}
+.snippet-label{font-size:14px;font-weight:650;margin:16px 0 8px}pre{position:relative;margin:0;padding:16px;background:#13243b;color:#e7f0ff;border-radius:11px;overflow:auto;font:13px/1.7 ui-monospace,Consolas,monospace;white-space:pre}
+.copy-row{display:flex;align-items:center;justify-content:space-between;gap:12px}.copy{border:1px solid #cddbea;background:#fff;border-radius:8px;padding:6px 12px;cursor:pointer;color:#0b63ce;font-weight:650}.copy:hover{background:#edf5ff}
+.links{color:#586b85;font-size:13px;margin:15px 0 0}footer{padding-top:0;padding-bottom:25px;font-size:12px;color:#718096}
+@media(max-width:900px){header{flex-direction:column;align-items:flex-start}.features{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){header,main,footer{padding-left:12px;padding-right:12px}header{padding-top:22px;padding-bottom:16px}.panel{padding:10px;border-radius:13px}.features{gap:9px}.feature{padding:13px}.intro-grid{grid-template-columns:1fr}#map-shell{height:65vh;min-height:450px}.section-head{align-items:flex-start}.pill{font-size:11px}.hero-actions{width:100%}.cta{flex:1}}
 </style>
 </head>
 <body>
-<header><img src="./assets/vn-flag.svg" width="47" height="31" alt="Quốc kỳ Việt Nam">
-<div><h1>Vietflexmap · Thư viện WebGIS Việt Nam</h1><div class="muted">Vietflexmap 1.0.2 · Leaflet 1.9.4 · Mobile-first · SVG Flag · Long Ngo · MIT 2026</div></div></header>
+<header>
+  <div class="hero-content">
+    <h1>Vietflexmap · Thư viện WebGIS Việt Nam</h1>
+    <p class="hero-description">Tạo bản đồ tương tác nhanh hơn với thư viện tối ưu cho tiếng Việt, tích hợp sẵn công cụ GIS và sử dụng thuận tiện qua npm hoặc UNPKG.</p>
+  </div>
+  <nav class="hero-actions" aria-label="Bắt đầu">
+    <a class="cta cta-primary" href="#demo">Xem bản đồ</a>
+    <a class="cta cta-outline" href="#bat-dau">Bắt đầu sử dụng</a>
+  </nav>
+</header>
 <main>
-<section class="card">
-<h2>Bản đồ tương tác</h2>
-<p class="muted">Chạm để di chuyển và thu phóng; dùng thanh công cụ đo khoảng cách, định vị hoặc nhập GeoJSON. Ba nhãn Biển Đông, Qđ.Hoàng Sa và Qđ.Trường Sa (Việt Nam) hiển thị trực tiếp trên bản đồ dưới dạng lớp phủ không tương tác; không tự sửa ảnh nền, ranh giới hoặc dữ liệu GIS. Dữ liệu lịch sử và lớp GeoJSON được giữ nguyên.</p>
-<div class="vnmap-shell" id="map-shell"><div id="map" style="height:100%" aria-label="Bản đồ tương tác VNMap"></div></div>
-<div class="buttons">
-<label>Nhập GeoJSON <input id="geo-file" type="file" accept=".geojson,.json,application/geo+json,application/json" aria-label="Chọn GeoJSON"></label>
-<button id="export-btn" type="button">Xuất GeoJSON</button>
-<button id="clear-btn" type="button">Xóa dữ liệu nhập</button>
-</div>
-<p id="message" role="status" aria-live="polite" class="muted">Đang kiểm tra và tải Vietflexmap 1.0.2…</p>
-
+<section class="panel" id="demo" aria-labelledby="demo-heading">
+  <div class="section-head">
+    <h2 id="demo-heading">Bản đồ tương tác</h2>
+    <span class="pill">Thử trực tiếp trên trình duyệt</span>
+  </div>
+  <div class="vnmap-shell" id="map-shell"><div id="map" aria-label="Bản đồ tương tác Vietflexmap"></div></div>
+  <p class="map-message" id="message" role="status" aria-live="polite">Đang tải bản đồ…</p>
 </section>
-<section class="card"><h2>Tích hợp Vietflexmap 1.0.2 qua UNPKG</h2>
-<pre><code>&lt;link rel="stylesheet" href="https://unpkg.com/vietflexmap@1.0.2/dist/vietflexmap.css"&gt;
-&lt;div class="vnmap-shell" style="height:600px"&gt;&lt;div id="map" style="height:100%"&gt;&lt;/div&gt;&lt;/div&gt;
+<section class="features" aria-label="Lợi ích Vietflexmap">
+  <article class="feature"><span class="feature-symbol" aria-hidden="true">01</span><h3>Dùng ngay</h3><p>Nhúng thư viện và khởi tạo bản đồ mà không cần thêm Leaflet riêng.</p></article>
+  <article class="feature"><span class="feature-symbol" aria-hidden="true">02</span><h3>Tối ưu tiếng Việt</h3><p>Giao diện và nhãn địa lý phù hợp với ứng dụng bản đồ tại Việt Nam.</p></article>
+  <article class="feature"><span class="feature-symbol" aria-hidden="true">03</span><h3>Phân phối linh hoạt</h3><p>Cài đặt bằng npm hoặc dùng ngay trên website qua CDN UNPKG.</p></article>
+  <article class="feature"><span class="feature-symbol" aria-hidden="true">04</span><h3>Sẵn sàng mở rộng</h3><p>Hỗ trợ GeoJSON, đo khoảng cách, định vị và quản lý lớp bản đồ qua API.</p></article>
+</section>
+<section class="panel" id="bat-dau" aria-labelledby="usage-heading">
+  <h2 id="usage-heading">Đưa bản đồ vào website của bạn</h2>
+  <p class="section-intro">Vietflexmap phù hợp cả khi phát triển ứng dụng lâu dài lẫn khi cần dựng một bản đồ HTML nhanh.</p>
+  <div class="intro-grid">
+    <div class="intro-tile"><h3>npm · Dành cho dự án</h3><p>npm là hệ sinh thái package JavaScript. Cài Vietflexmap để quản lý phiên bản và tích hợp vào quy trình phát triển của bạn.</p></div>
+    <div class="intro-tile"><h3>UNPKG · Dành cho website</h3><p>UNPKG phân phối file từ package npm qua CDN. Chỉ cần liên kết CSS và JS để bắt đầu mà không phải thiết lập công cụ build.</p></div>
+  </div>
+  <div class="copy-row"><h3 class="snippet-label">Cài đặt qua npm</h3><button type="button" class="copy" data-copy="npm-code" aria-label="Sao chép lệnh npm">Sao chép</button></div>
+  <pre><code id="npm-code">npm install vietflexmap@1.0.2</code></pre>
+  <div class="copy-row"><h3 class="snippet-label">Nhúng vào HTML qua UNPKG</h3><button type="button" class="copy" data-copy="cdn-code" aria-label="Sao chép mã HTML">Sao chép</button></div>
+  <pre><code id="cdn-code">&lt;link rel="stylesheet" href="https://unpkg.com/vietflexmap@1.0.2/dist/vietflexmap.css"&gt;
+&lt;div class="vnmap-shell" style="height:600px"&gt;
+  &lt;div id="map" style="height:100%"&gt;&lt;/div&gt;
+&lt;/div&gt;
 &lt;script src="https://unpkg.com/vietflexmap@1.0.2/dist/vietflexmap.js"&gt;&lt;/script&gt;
 &lt;script&gt;const app = VNMap.create("map");&lt;/script&gt;</code></pre>
-<p class="muted">Tài liệu: <a href="./docs/INTEGRATION.md">Tích hợp CDN</a> · <a href="https://github.com/xulytiengviet/VN">Mã nguồn</a>. Bản đồ OpenStreetMap là dữ liệu nền minh họa; tuân thủ bản quyền và chính sách tải tile.</p></section>
+  <p class="links"><a href="https://www.npmjs.com/package/vietflexmap" target="_blank" rel="noopener">Xem trên npm</a> · <a href="./docs/INTEGRATION.md">Hướng dẫn tích hợp</a> · <a href="https://github.com/xulytiengviet/VN" target="_blank" rel="noopener">Mã nguồn GitHub</a></p>
+</section>
 </main>
-<footer>© 2026 Long Ngo · Vietflexmap (MIT) · Leaflet (BSD-2-Clause) · <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a> · Nhãn giao diện: Giữ nguyên hệ thống GIS · Dữ liệu lịch sử · Biển Đông · Qđ.Hoàng Sa (Việt Nam) · Qđ.Trường Sa (Việt Nam).</footer>
+<footer>© 2026 Long Ngo · Vietflexmap MIT · Leaflet BSD-2-Clause · Dữ liệu bản đồ: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a>.</footer>
+<script>
+document.querySelectorAll("[data-copy]").forEach(function(button){
+ button.addEventListener("click",function(){
+   var code=document.getElementById(button.getAttribute("data-copy")).textContent;
+   if(navigator.clipboard&&window.isSecureContext){
+     navigator.clipboard.writeText(code).then(function(){button.textContent="Đã sao chép";},function(){button.textContent="Không thể sao chép";});
+   } else {
+     button.textContent="Hãy chọn và sao chép mã";
+   }
+ });
+});
+</script>
 <script>
 (function(){
 "use strict";
@@ -72,15 +130,13 @@ function loadCSS(url){
 function validate(){return !!(window.L&&window.L.map&&window.VNMap&&typeof window.VNMap.create==="function");}
 function boot(){
   var app=window.VNMap.create("map");window.vnMapApp=app;
-  document.getElementById("geo-file").addEventListener("change",function(e){var f=e.target.files[0];if(f)app.loadFile(f).then(function(){msg.textContent="Đã nhập "+f.name;}).catch(function(err){msg.textContent="Không thể nhập: "+err.message;});});
-  document.getElementById("export-btn").addEventListener("click",function(){app.exportGeoJSON();msg.textContent="Đã tạo tệp GeoJSON";});
-  document.getElementById("clear-btn").addEventListener("click",function(){app.clearData();msg.textContent="Đã xóa dữ liệu GeoJSON nhập";});
+  if(app.map&&app.map._vnGISCreditControl){app.map._vnGISCreditControl.setPosition("bottomright");}
 }
 async function start(){
   for(var i=0;i<attempts.length;i++){
     try{
       await loadScript(attempts[i]);
-      if(validate()){boot();msg.textContent="Ứng dụng sẵn sàng · Vietflexmap 1.0.2";return;}
+      if(validate()){boot();msg.textContent="Sẵn sàng";return;}
       throw new Error("Vietflexmap CDN không cung cấp đủ L / VNMap");
     }catch(e){console.warn(e);}
   }
@@ -96,7 +152,7 @@ async function start(){
     if(!window.VNMap) await loadScript("./dist/vn-map.js");
     if(!validate()) throw new Error("Thiếu thư viện Leaflet hoặc VNMap");
     boot();
-    msg.textContent="Ứng dụng sẵn sàng · Chế độ dự phòng (CDN 1.0.2 chưa tải được)";
+    msg.textContent="Sẵn sàng";
   }catch(e){
     msg.textContent="Không tải được thư viện bản đồ. Vui lòng kiểm tra mạng/CDN. "+e.message;
     console.error("Vietflexmap initialization failed:",e);
@@ -105,4 +161,5 @@ async function start(){
 start();
 })();
 </script>
-</body></html>
+</body>
+</html>
