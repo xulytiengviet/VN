@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#da251d">
+  <meta name="description" content="VN GIS: quốc kỳ Việt Nam SVG độc lập font emoji, ghi công OpenStreetMap và tích hợp Leaflet không tác động lớp GIS.">
+  <title>VN GIS · SVG Flag CDN</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/vn-flag.svg">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="./dist/vn-gis.css">
+  <style>
+    *{box-sizing:border-box}body{margin:0;font:15px/1.55 system-ui,"Segoe UI",Arial,sans-serif;color:#15243b;background:#f2f5f9}
+    header,main,footer{max-width:1100px;margin:auto;padding:16px 20px}header{display:flex;align-items:center;gap:12px}header img{width:44px}
+    h1{font-size:1.5rem;margin:0}h2{font-size:1.05rem}p{margin:8px 0 16px}.sub{color:#57677d}
+    .card{background:white;border:1px solid #dce2ea;border-radius:12px;padding:16px;margin-bottom:16px}
+    #map{height:min(62vh,620px);min-height:350px;border-radius:9px;overflow:hidden}
+    .label-list{margin:12px 0}code{overflow-wrap:anywhere}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0f2135;color:#e7f0ff;border-radius:8px;padding:14px}
+    footer{color:#526177;font-size:12px}a{color:#075a9f}
+    @media(max-width:600px){header,main,footer{padding:12px}#map{min-height:420px;height:60vh}}
+  </style>
+</head>
+<body>
+<header>
+  <img src="./assets/vn-flag.svg" alt="Quốc kỳ Việt Nam" width="44" height="30">
+  <div><h1>VN GIS · SVG Flag CDN</h1><div class="sub">SVG thay emoji · WebGIS tương thích mọi thiết bị · Long Ngo · MIT 2026</div></div>
+</header>
+<main>
+  <section class="card">
+    <h2>Minh họa Leaflet (lớp nền OpenStreetMap)</h2>
+    <p class="sub">Trang demo độc lập. Thành phần attribution không chỉnh sửa dữ liệu lịch sử, lớp GIS hoặc nhãn từ các dự án khác. Các nhãn bên dưới là nhãn giao diện, không phải ranh giới hay vị trí thực địa.</p>
+    <div id="map" aria-label="Bản đồ Leaflet minh họa Việt Nam"></div>
+    <div id="labels" class="label-list"></div>
+  </section>
+  <section class="card">
+    <h2>Mã CDN dùng lại</h2>
+    <pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xulytiengviet/VN@main/dist/vn-gis.css"&gt;
+&lt;script defer src="https://cdn.jsdelivr.net/gh/xulytiengviet/VN@main/dist/vn-gis.js"&gt;&lt;/script&gt;
+&lt;!-- Sau khi đã khởi tạo map Leaflet: --&gt;
+&lt;script&gt;window.addEventListener('load', () =&gt; VNGIS.addToLeaflet(map));&lt;/script&gt;</code></pre>
+    <p class="sub">Trong môi trường sản xuất nên chốt CDN bằng commit SHA hoặc release tag, không dùng @main. Nếu website tự chèn mã khác làm thay đổi attribution, cần giữ ghi công đầy đủ theo giấy phép dữ liệu/bản đồ của từng nguồn.</p>
+  </section>
+</main>
+<footer>
+  © 2026 Long Ngo · MIT · <a href="https://leafletjs.com/">Leaflet</a> (BSD-2-Clause) · <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>. Bản đồ OSM chỉ là nền minh họa; sử dụng tile theo <a href="https://operations.osmfoundation.org/policies/tiles/">chính sách dịch vụ tile OSM</a>.
+</footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="./dist/vn-gis.js"></script>
+<script>
+(function () {
+  if (!window.L || !window.VNGIS) {
+    document.getElementById("map").textContent = "Không tải được Leaflet/CDN. Kiểm tra mạng và thử tải lại.";
+    return;
+  }
+  var map = L.map("map", {zoomControl:true}).setView([16.3, 108.3], 5);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom:19, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+  }).addTo(map);
+  VNGIS.addToLeaflet(map);
+  document.getElementById("labels").appendChild(VNGIS.labels());
+  window.vnDemoMap = map;
+})();
+</script>
+</body>
+</html>
