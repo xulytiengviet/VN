@@ -2,11 +2,11 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#da251d"><title>VNMap 1.1.2 · SVG Flag CDN</title>
+<meta name="theme-color" content="#da251d"><title>VNMap 1.2.0 · SVG Flag CDN</title>
 <meta name="description" content="VNMap thư viện JavaScript WebGIS dựa trên Leaflet, tối ưu thiết bị di động, cờ Việt Nam SVG.">
 <link rel="icon" href="./assets/vn-flag.svg" type="image/svg+xml">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="./dist/vn-gis.css?v=1.1.2"><link rel="stylesheet" href="./dist/vn-map.css?v=1.1.2">
+<link rel="stylesheet" href="./dist/vn-gis.css?v=1.2.0"><link rel="stylesheet" href="./dist/vn-map.css?v=1.2.0">
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#15243b;font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
 header,main,footer{max-width:1250px;padding:16px 20px;margin:auto}header{display:flex;align-items:center;gap:12px}
@@ -23,11 +23,11 @@ a{color:#0962ab}footer{font-size:12px;color:#52647c}
 </head>
 <body>
 <header><img src="./assets/vn-flag.svg" width="47" height="31" alt="Quốc kỳ Việt Nam">
-<div><h1>VNMap · Thư viện WebGIS Việt Nam</h1><div class="muted">Bản VNMap 1.1.2 · Leaflet 1.9.4 · Mobile-first · SVG Flag · Long Ngo · MIT 2026</div></div></header>
+<div><h1>VNMap · Thư viện WebGIS Việt Nam</h1><div class="muted">Bản VNMap 1.2.0 · Leaflet 1.9.4 · Mobile-first · SVG Flag · Long Ngo · MIT 2026</div></div></header>
 <main>
 <section class="card">
 <h2>Bản đồ tương tác</h2>
-<p class="muted">Chạm để di chuyển và thu phóng; dùng thanh công cụ đo khoảng cách, định vị hoặc nhập GeoJSON. Các nhãn dưới đây là nhãn giao diện, không phải lớp ranh giới hay điểm địa lý.</p>
+<p class="muted">Chạm để di chuyển và thu phóng; dùng thanh công cụ đo khoảng cách, định vị hoặc nhập GeoJSON. Các nhãn dưới đây là nhãn thông tin giao diện, không tự sửa ảnh nền hoặc dữ liệu GIS. Dữ liệu lịch sử và lớp GeoJSON được giữ nguyên.</p>
 <div class="vnmap-shell" id="map-shell"><div id="map" style="height:100%" aria-label="Bản đồ tương tác VNMap"></div></div>
 <div class="buttons">
 <label>Nhập GeoJSON <input id="geo-file" type="file" accept=".geojson,.json,application/geo+json,application/json" aria-label="Chọn GeoJSON"></label>
@@ -48,9 +48,9 @@ a{color:#0962ab}footer{font-size:12px;color:#52647c}
 &lt;script&gt;const app = VNMap.create("map");&lt;/script&gt;</code></pre>
 <p class="muted">Tài liệu: <a href="./docs/INTEGRATION.md">Tích hợp CDN</a> · <a href="https://github.com/xulytiengviet/VN">Mã nguồn</a>. Bản đồ OpenStreetMap là dữ liệu nền minh họa; tuân thủ bản quyền và chính sách tải tile.</p></section>
 </main>
-<footer>© 2026 Long Ngo · VNMap (MIT) · Leaflet (BSD-2-Clause) · <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a> · Nhãn giao diện: Dữ liệu lịch sử · Biển Đông · Qđ. Hoàng Sa (Việt Nam) · Qđ. Trường Sa (Việt Nam).</footer>
+<footer>© 2026 Long Ngo · VNMap (MIT) · Leaflet (BSD-2-Clause) · <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a> · Nhãn giao diện: Giữ nguyên hệ thống GIS · Dữ liệu lịch sử · Biển Đông · Qđ.Hoàng Sa (Việt Nam) · Qđ.Trường Sa (Việt Nam).</footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="./dist/vn-gis.js?v=1.1.2"></script><script src="./dist/vn-map.js?v=1.1.2"></script>
+<script src="./dist/vn-gis.js?v=1.2.0"></script><script src="./dist/vn-map.js?v=1.2.0"></script>
 <script>
 (function(){
 var msg=document.getElementById("message");try{
