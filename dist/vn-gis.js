@@ -98,7 +98,7 @@
       });
     }
     var C = L.Control.extend({
-      options: { position: options.position || "bottomright" },
+      options: { position: options.position || "bottomleft" },
       onAdd: function () {
         var el = L.DomUtil.create("div", "vn-gis-leaflet-control");
         var c = credit(options);
@@ -120,6 +120,38 @@
     syncSources();
     return control;
   }
+  // A dedicated, non-interactive Leaflet pane. These are geographic name labels,
+  // not survey boundaries, island geometries or historical cartography.
+  function addGeographicLabels(map, options) {
+    if (!map || typeof map.createPane !== "function" || !rootLeaflet()) throw new Error("VNGIS.addGeographicLabels requires Leaflet");
+    if (map._vnGISGeographicLabels) return map._vnGISGeographicLabels;
+    var L = rootLeaflet();
+    options = options || {};
+    var paneName = "vnGISNames";
+    var pane = map.getPane(paneName) || map.createPane(paneName);
+    pane.style.zIndex = "625";
+    pane.style.pointerEvents = "none";
+    var group = L.layerGroup().addTo(map);
+    [
+      {name:"Biển Đông",position:[14.2,114.9],type:"sea"},
+      {name:"Qđ.Hoàng Sa (Việt Nam)",position:[16.5,112],type:"island"},
+      {name:"Qđ.Trường Sa (Việt Nam)",position:[10,114],type:"island"}
+    ].forEach(function(item) {
+      var label = document.createElement("span");
+      label.className = "vn-gis-map-name vn-gis-map-name--" + item.type;
+      label.textContent = item.name;
+      L.marker(item.position,{
+        pane:paneName,interactive:false,keyboard:false,
+        icon:L.divIcon({
+          className:"vn-gis-map-label",
+          html:label.outerHTML,
+          iconSize:[210,28],iconAnchor:[105,14]
+        })
+      }).addTo(group);
+    });
+    map._vnGISGeographicLabels = group;
+    return group;
+  }
   function rootLeaflet() { return typeof globalThis !== "undefined" ? globalThis.L : null; }
-  return { version:version, cdn:CDN, flagUrl:FLAG, flag:flag, credit:credit, labels:labels, mount:mount, addToLeaflet:addToLeaflet };
+  return { version:version, cdn:CDN, flagUrl:FLAG, flag:flag, credit:credit, labels:labels, mount:mount, addToLeaflet:addToLeaflet, addGeographicLabels:addGeographicLabels };
 });
