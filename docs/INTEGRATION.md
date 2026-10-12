@@ -1,4 +1,4 @@
-# Tích hợp Vietflexmap 1.0.0 qua UNPKG
+# Tích hợp Leaflet 1.9.4 qua UNPKG và Vietflexmap từ file nguồn UTF-8
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
