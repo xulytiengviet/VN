@@ -5,7 +5,7 @@
   root.VNGIS = api;
 })(typeof globalThis !== "undefined" ? globalThis : this, function () {
   "use strict";
-  var version = "1.0.0";
+  var version = "1.2.0";
   var CDN = "https://cdn.jsdelivr.net/gh/xulytiengviet/VN@main/";
   var FLAG = CDN + "assets/vn-flag.svg";
   var fallbackSVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20"><path fill="#da251d" d="M0 0h30v20H0z"/><path fill="#ff0" d="m15 3.1 1.65 5.1H22l-4.33 3.15 1.66 5.1L15 13.3l-4.33 3.15 1.66-5.1L8 8.2h5.35Z"/></svg>';
@@ -27,6 +27,11 @@
     var node = document.createElement("span");
     node.className = "vn-gis-credit";
     node.appendChild(flag(options));
+    var separator = document.createElement("span");
+    separator.className = "vn-gis-divider";
+    separator.textContent = "|";
+    separator.setAttribute("aria-hidden", "true");
+    node.appendChild(separator);
     var link = document.createElement("a");
     link.href = "https://www.openstreetmap.org/copyright";
     link.target = "_blank";
@@ -39,7 +44,7 @@
   function labels() {
     var el = document.createElement("div");
     el.className = "vn-gis-labels";
-    ["Dữ liệu lịch sử", "Biển Đông", "Qđ. Hoàng Sa (Việt Nam)", "Qđ. Trường Sa (Việt Nam)"].forEach(function (label) {
+    ["Giữ nguyên hệ thống GIS", "Dữ liệu lịch sử", "Biển Đông", "Qđ.Hoàng Sa (Việt Nam)", "Qđ.Trường Sa (Việt Nam)"].forEach(function (label) {
       var item = document.createElement("span");
       item.textContent = label;
       el.appendChild(item);
@@ -83,7 +88,7 @@
         if (!raw) return;
         // OSM gets the short visible credit and complete contributor text
         // in the title, aria label, and HTML footer.
-        if (/openstreetmap/i.test(raw) && !/<(?!\/?a\b)/i.test(raw)) return;
+        if (/openstreetmap/i.test(raw)) return;
         if (seen.has(raw)) return;
         seen.add(raw);
         var extra = document.createElement("span");
