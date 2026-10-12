@@ -2,3 +2,8 @@
 /* Avoid overlap between unified VN attribution and zoom controls. */
 .vnmap-shell .leaflet-bottom.leaflet-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
 .vnmap-shell .leaflet-bottom.leaflet-right .leaflet-control{float:none;clear:both}
+
+/* Attribution anchored flush to the map bottom-left corner, independent of zoom controls. */
+.vnmap-shell .leaflet-bottom.leaflet-left{bottom:0;left:0}
+.vnmap-shell .leaflet-bottom.leaflet-left .vn-gis-leaflet-control{margin:0!important}
+.vnmap-shell .leaflet-bottom.leaflet-left .vn-gis-credit{border-bottom-left-radius:0}
