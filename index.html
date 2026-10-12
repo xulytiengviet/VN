@@ -82,12 +82,46 @@ main{padding-bottom:22px}.panel{border:1px solid #dfe6f1;border-radius:16px;back
   <div class="copy-row"><h3 class="snippet-label">Cài đặt qua npm</h3><button type="button" class="copy" data-copy="npm-code" aria-label="Sao chép lệnh npm">Sao chép</button></div>
   <pre><code id="npm-code">npm install vietflexmap@1.0.2</code></pre>
   <div class="copy-row"><h3 class="snippet-label">Nhúng vào HTML qua UNPKG</h3><button type="button" class="copy" data-copy="cdn-code" aria-label="Sao chép mã HTML">Sao chép</button></div>
-  <pre><code id="cdn-code">&lt;link rel="stylesheet" href="https://unpkg.com/vietflexmap@1.0.2/dist/vietflexmap.css"&gt;
-&lt;div class="vnmap-shell" style="height:600px"&gt;
-  &lt;div id="map" style="height:100%"&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;script src="https://unpkg.com/vietflexmap@1.0.2/dist/vietflexmap.js"&gt;&lt;/script&gt;
-&lt;script&gt;const app = VNMap.create("map");&lt;/script&gt;</code></pre>
+  <pre><code id="cdn-code">&lt;!doctype html&gt;
+&lt;html lang="vi"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+  &lt;title&gt;Vietflexmap · Ví dụ HTML&lt;/title&gt;
+  &lt;link rel="stylesheet" href="https://unpkg.com/vietflexmap@1.0.2/dist/vietflexmap.css"&gt;
+  &lt;style&gt;
+    html,body{margin:0;width:100%;min-height:100%;font-family:system-ui,sans-serif}
+    .vnmap-shell{height:600px;min-height:360px;position:relative}
+    #map{height:100%;width:100%}
+    #error{display:none;padding:12px;color:#9b1c1c;background:#fff1f1}
+    @media(max-width:600px){.vnmap-shell{height:70vh;min-height:380px}}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="vnmap-shell"&gt;&lt;div id="map" aria-label="Bản đồ Việt Nam"&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;p id="error" role="alert"&gt;&lt;/p&gt;
+  &lt;script src="https://unpkg.com/vietflexmap@1.0.2/dist/vietflexmap.js"&gt;&lt;/script&gt;
+  &lt;script&gt;
+    (function () {
+      var message=document.getElementById("error");
+      function fail(text) {message.textContent=text;message.style.display="block";}
+      if (!window.L || !window.VNMap || typeof window.VNMap.create!=="function") {
+        fail("Không tải được Vietflexmap 1.0.2. Vui lòng kiểm tra kết nối hoặc CDN.");
+        return;
+      }
+      try {
+        var app=window.VNMap.create("map");
+        window.vnMapApp=app;
+        // Ví dụ: app.addGeoJSON(yourFeatureCollection);
+      } catch (err) {
+        fail("Không thể khởi tạo bản đồ: "+err.message);
+        console.error(err);
+      }
+    })();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
   <p class="links"><a href="https://www.npmjs.com/package/vietflexmap" target="_blank" rel="noopener">Xem trên npm</a> · <a href="./docs/INTEGRATION.md">Hướng dẫn tích hợp</a> · <a href="https://github.com/xulytiengviet/VN" target="_blank" rel="noopener">Mã nguồn GitHub</a></p>
 </section>
 </main>
