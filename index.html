@@ -23,24 +23,15 @@ main{padding-bottom:22px}.panel{border:1px solid #dfe6f1;border-radius:16px;back
 .section-intro{margin:5px 0 0;color:#607089;font-size:14px}.pill{border:1px solid #dce8ef;background:#f1f7fb;color:#325b7d;border-radius:999px;padding:4px 11px;font-size:12px;white-space:nowrap}
 #map-shell{position:relative;height:min(70vh,680px);min-height:430px;border-radius:13px;overflow:hidden}
 #map{height:100%}.map-message{font-size:12px;color:#62738a;margin:8px 2px 0}
-/* Landing page: hide redundant demo toolbar, retain native zoom controls. */
+/* Map controls: zoom upper right, credit below, scale lower right. */
 #map-shell .vnmap-tools{display:none!important}
-#map-shell .leaflet-bottom.leaflet-right .leaflet-control-zoom{
-  position:absolute;bottom:40px;right:8px;margin:0!important;float:none;
-  border:1px solid #d9e3ef;border-radius:9px;box-shadow:0 2px 8px #0002;overflow:hidden
-}
-#map-shell .leaflet-bottom.leaflet-right .vn-gis-leaflet-control{
-  position:absolute;bottom:5px;right:8px;float:none;margin:0!important;z-index:1000
-}
-#map-shell .vn-gis-leaflet-control .vn-gis-credit{
-  display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.97);
-  font-size:10px;line-height:1.25;padding:4px 6px;border-radius:6px;
-  box-shadow:0 1px 6px #101f2c25;white-space:nowrap;max-width:min(90vw,360px)
-}
-#map-shell .vn-gis-leaflet-control .vn-gis-flag{
-  display:block;width:16px!important;min-width:16px!important;height:11px!important
-}
+#map-shell .leaflet-top.leaflet-right .leaflet-control-zoom{margin:10px 10px 0 0!important;border:1px solid #d9e3ef;border-radius:9px;box-shadow:0 2px 8px #0002;overflow:hidden}
+#map-shell .leaflet-top.leaflet-right .vn-gis-leaflet-control{clear:both;float:right;margin:7px 10px 0 0!important}
+#map-shell .vn-gis-leaflet-control .vn-gis-credit{display:inline-flex;align-items:center;gap:4px;flex-wrap:nowrap;background:rgba(255,255,255,.97);font-size:10px;line-height:1.2;padding:4px 6px;border-radius:6px;box-shadow:0 1px 6px #101f2c25;white-space:nowrap;max-width:min(90vw,360px)}
+#map-shell .vn-gis-leaflet-control .vn-gis-flag{display:block;width:16px!important;min-width:16px!important;height:11px!important}
 #map-shell .vn-gis-extra-credit{font-size:10px}
+#map-shell .leaflet-bottom.leaflet-right .leaflet-control-scale{clear:both;margin:0 10px 10px 0!important;background:rgba(255,255,255,.95);padding:3px 5px;border-radius:5px}
+#map-shell .leaflet-control-scale-line{white-space:nowrap}
 .features{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
 .feature{background:#fff;border:1px solid #e1e8f3;border-radius:14px;padding:18px}.feature h3{margin:0 0 6px;font-size:16px}.feature p{margin:0;color:#53657f;font-size:13px}
 .feature-symbol{display:inline-flex;background:#eff5ff;color:#0b63ce;border-radius:9px;min-height:34px;min-width:34px;align-items:center;justify-content:center;font-weight:750;margin-bottom:12px}
@@ -139,7 +130,17 @@ function loadCSS(url){
 function validate(){return !!(window.L&&window.L.map&&window.VNMap&&typeof window.VNMap.create==="function");}
 function boot(){
   var app=window.VNMap.create("map");window.vnMapApp=app;
-  if(app.map&&app.map._vnGISCreditControl){app.map._vnGISCreditControl.setPosition("bottomright");}
+  if(app.map){
+    // Reposition existing Leaflet controls while preserving their handlers.
+    var corners=app.map._controlCorners;
+    if(corners){
+      var zoom=app.map.getContainer().querySelector(".leaflet-control-zoom");
+      if(zoom)corners.topright.prepend(zoom);
+      var scale=app.map.getContainer().querySelector(".leaflet-control-scale");
+      if(scale)corners.bottomright.appendChild(scale);
+    }
+    if(app.map._vnGISCreditControl)app.map._vnGISCreditControl.setPosition("topright");
+  }
 }
 async function start(){
   for(var i=0;i<attempts.length;i++){
