@@ -6,10 +6,12 @@ Thư viện **vietflexmap@1.0.0** phân phối từ npm qua UNPKG, sử dụng *
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="https://unpkg.com/vietflexmap@1.0.0/dist/vietflexmap.css">
+<link rel="stylesheet" href="./dist/vn-gis.css">
+<link rel="stylesheet" href="./dist/vn-map.css">
 <div class="vnmap-shell" style="height:600px"><div id="map" style="height:100%"></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/vietflexmap@1.0.0/dist/vietflexmap.js"></script>
+<script src="./dist/vn-gis.js"></script>
+<script src="./dist/vn-map.js"></script>
 <script>const app = VNMap.create("map");</script>
 ```
 
@@ -19,6 +21,9 @@ Những nhãn riêng hiển thị trên bản đồ: **Biển Đông**, **Qđ.Ho
 
 ## Quy trình bảo trì
 
-Các tệp nguồn `dist/vn-gis.*` và `dist/vn-map.*` tiếp tục được bảo quản trong repository. Các tệp gộp `dist/vietflexmap.js`, `dist/vietflexmap.css` và SVG được xuất bản theo version bất biến trên npm. Trang GitHub Pages sử dụng gói `vietflexmap@1.0.0` đã phát hành. Khi thay đổi mã, phải thử nghiệm và xuất bản phiên bản npm mới trước khi đổi CDN của trang; **không thể ghi đè 1.0.0**.
+Các tệp nguồn `dist/vn-gis.*` và `dist/vn-map.*` tiếp tục được bảo quản trong repository. Các tệp gộp `dist/vietflexmap.js`, `dist/vietflexmap.css` và SVG được xuất bản theo version bất biến trên npm. Trang GitHub Pages tạm thời dùng các file nguồn UTF-8 trong repository vì gói npm `vietflexmap@1.0.0` có lỗi mã hóa tiếng Việt. Khi thay đổi mã, phải thử nghiệm và xuất bản phiên bản npm mới trước khi đổi CDN của trang; **không thể ghi đè 1.0.0**.
 
 Giấy phép phần bổ sung MIT © 2026 Long Ngo; Leaflet BSD-2-Clause; OpenStreetMap và nguồn dữ liệu khác giữ quy định ghi công riêng.
+
+
+**Đường dẫn chuẩn Leaflet:** `https://unpkg.com/leaflet@1.9.4/dist/leaflet.css` và `https://unpkg.com/leaflet@1.9.4/dist/leaflet.js`. Khi npm `vietflexmap@1.0.1` đã sửa UTF-8, mới đồng bộ trang quay lại gói UNPKG.
